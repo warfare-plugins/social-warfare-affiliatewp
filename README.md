@@ -1,1 +1,1 @@
-# affiliateWP
+# affiliatewp
