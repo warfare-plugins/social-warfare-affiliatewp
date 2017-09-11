@@ -3,7 +3,7 @@
  * Plugin Name: Social Warfare - AffiliateWP
  * Plugin URI:  http://warfareplugins.com
  * Description: A plugin to that transforms all shared links on the Social Warfare buttons across your site into affiliate links for logged in affiliates.
- * Version:     0.0.1
+ * Version:     1.0.0
  * Author:      Warfare Plugins
  * Author URI:  http://warfareplugins.com
  * Text Domain: social-warfare
@@ -15,7 +15,7 @@ defined( 'WPINC' ) || die;
  * Define plugin constants for use throughout the plugin (Version, Directories and Updates)
  *
  */
-define( 'SWAWP_VERSION', '0.0.1' );
+define( 'SWAWP_VERSION', '1.0.0' );
 define( 'SWAWP_PLUGIN_FILE', __FILE__ );
 define( 'SWAWP_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'SWAWP_PLUGIN_DIR', dirname( __FILE__ ) );
