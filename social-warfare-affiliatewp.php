@@ -22,6 +22,9 @@ define( 'SWAWP_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'SWAWP_STORE_URL', 'https://warfareplugins.com' );
 define( 'SWAWP_ITEM_ID', 114264 );
 define( 'SWAWP_CORE_VERSION_REQUIRED' , '2.3.2');
+if ( !defined( 'SWP_ACTIVATE_REGISTRATION_TAB' )) :
+    define( 'SWP_ACTIVATE_REGISTRATION_TAB', true );
+endif;
 
 /**
  * Add a registration key for the registration functions
