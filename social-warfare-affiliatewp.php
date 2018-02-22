@@ -73,7 +73,7 @@ function swawp_update_checker() {
             $website_url = swp_get_site_url();
 
             // setup the updater
-            $edd_updater = new SW_EDD_SL_Plugin_Updater( SWAWP_STORE_URL , __FILE__ , array(
+            $edd_updater = new SWP_Plugin_Updater( SWAWP_STORE_URL , __FILE__ , array(
             	'version'   => SWAWP_VERSION,		// current version number
             	'license'   => $license_key,	// license key
             	'item_id'   => SWAWP_ITEM_ID,	// id of this plugin
