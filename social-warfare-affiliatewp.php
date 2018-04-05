@@ -10,7 +10,6 @@
  */
 
 defined( 'WPINC' ) || die;
-
 /**
  * Define plugin constants for use throughout the plugin (Version, Directories and Updates)
  *
@@ -26,30 +25,36 @@ if ( !defined( 'SWP_ACTIVATE_REGISTRATION_TAB' )) :
     define( 'SWP_ACTIVATE_REGISTRATION_TAB', true );
 endif;
 
-/**
- * Add a registration key for the registration functions
- *
- * @param Array An array of registrations for each paid addon
- * @return Array An array modified to add this new registration key
- *
- */
-add_filter('swp_registrations' , 'social_warfare_affiliatewp_registration_key' , 10);
-function social_warfare_affiliatewp_registration_key($array) {
+add_action( 'plugins_loaded', function() {
+    $AffiliateWP = new SWP_Addon( 'Social Warfare - AffiliateWP', 'affiliatewp', 114264, '1.0.0' );
+});
 
-    // Make sure core is on a version that contains our dependancies
-    if (defined('SWP_VERSION') && version_compare(SWP_VERSION , SWAWP_CORE_VERSION_REQUIRED) >= 0){
-
-        // Add this plugin to the registrations array
-        $array['affiliatewp'] = array(
-            'plugin_name' => 'Social Warfare - AffiliateWP',
-            'key' => 'affiliatewp',
-            'product_id' => SWAWP_ITEM_ID
-        );
-    }
-
-    // Return the modified or unmodified array
-    return $array;
-}
+//
+// /**
+//  * Add a registration key for the registration functions
+//  *
+//  * @param Array An array of registrations for each paid addon
+//  * @return Array An array modified to add this new registration key
+//  *
+//  */
+// add_filter('swp_registrations' , 'social_warfare_affiliatewp_registration_key' , 10);
+// function social_warfare_affiliatewp_registration_key($array) {
+//
+//     // Make sure core is on a version that contains our dependancies
+//     if (defined('SWP_VERSION') && version_compare(SWP_VERSION , SWAWP_CORE_VERSION_REQUIRED) >= 0){
+//
+//         // Add this plugin to the registrations array
+//         $array['affiliatewp'] = array(
+//             'plugin_name' => 'Social Warfare - AffiliateWP',
+//             'key' => 'affiliatewp',
+//             'product_id' => SWAWP_ITEM_ID,
+//             'version'   => SWAWP_VERSION
+//         );
+//     }
+//
+//     // Return the modified or unmodified array
+//     return $array;
+// }
 
 /**
  * A function to check for updates to this addon
