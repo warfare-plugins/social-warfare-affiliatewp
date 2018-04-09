@@ -15,7 +15,7 @@ defined( 'WPINC' ) || die;
 add_action( 'plugins_loaded', function() {
 
     //* Define our new class here. Immediately instantiate below.
-    class SWP_AffiliateWP extends SWP_Addon {
+    class Social_Warfare_AffiliateWP extends SWP_Addon {
         public function __construct() {
             $this->name = 'Social Warfare - AffiliateWP';
             $this->key = 'affiliatewp';
@@ -24,7 +24,7 @@ add_action( 'plugins_loaded', function() {
             $this->core_required = '3.0.0';
 
             if ( $this->is_registerd() ) {
-                if ( version_compare(SWP_VERSION, $this->core_required) >= 0) ) {
+                if ( version_compare($this->core_version, $this->core_required) >= 0) ) {
                     add_filter( 'swp_network_buttons', [$this, 'append_affiliate_id_to_links'], 1, 1 );
                 } else {
                    throw( "Please make sure you are using the most recent version of Social Warfare. We require at least version " . $this->core_required . "." );
@@ -64,5 +64,5 @@ add_action( 'plugins_loaded', function() {
         }
     }
 
-    new SWP_AffiliateWP();
+    new Social_Warfare_AffiliateWP();
 });
