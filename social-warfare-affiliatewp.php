@@ -3,7 +3,7 @@
  * Plugin Name: Social Warfare - AffiliateWP
  * Plugin URI:  http://warfareplugins.com
  * Description: A plugin to that transforms all shared links on the Social Warfare buttons across your site into affiliate links for logged in affiliates.
- * Version:     1.0.0
+ * Version:     2.0.0
  * Author:      Warfare Plugins
  * Author URI:  http://warfareplugins.com
  * Text Domain: social-warfare
@@ -16,9 +16,20 @@ add_action( 'plugins_loaded', function() {
 
     //* Define our new class here. Immediately instantiate below.
     class SWP_AffiliateWP extends SWP_Addon {
-        public function __construct( $name, $key, $product_id, $version, $core ) {
-            parent::__construct( $name, $key, $product_id, $version, $core );
-            add_filter( 'swp_network_buttons' , [$this, 'append_affiliate_id_to_links'], 1 , 1 );
+        public function __construct() {
+            $this->name = 'Social Warfare - AffiliateWP';
+            $this->key = 'affiliatewp';
+            $this->product_id = 114264;
+            $this->version = '1.1.0';
+            $this->core_required = '3.0.0';
+
+            if ( $this->is_registerd() ) {
+                if ( version_compare(SWP_VERSION, $this->core_required) >= 0) ) {
+                    add_filter( 'swp_network_buttons', [$this, 'append_affiliate_id_to_links'], 1, 1 );
+                } else {
+                   throw( "Please make sure you are using the most recent version of Social Warfare. We require at least version " . $this->core_required . "." );
+               }
+            }
         }
 
         /**
@@ -33,7 +44,7 @@ add_action( 'plugins_loaded', function() {
         public function append_affiliate_id_to_links( $buttons ) {
 
             // Make sure core is on a version that contains our dependancies
-            if (defined('SWP_VERSION') && version_compare(SWP_VERSION , SWAWP_CORE_VERSION_REQUIRED) >= 0) {
+            if (defined('SWP_VERSION') && version_compare(SWP_VERSION, SWAWP_CORE_VERSION_REQUIRED) >= 0) {
 
                 // Check if the AffiliateWP plugin is installed
                 if ( function_exists('affwp_is_affiliate') ) {
@@ -53,5 +64,5 @@ add_action( 'plugins_loaded', function() {
         }
     }
 
-    $AffiliateWP = new SWP_AffiliateWP( 'Social Warfare - AffiliateWP', 'affiliatewp', 114264, '1.0.0', '2.3.2' );
+    new SWP_AffiliateWP();
 });
