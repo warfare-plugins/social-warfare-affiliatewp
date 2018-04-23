@@ -12,8 +12,9 @@
 defined( 'WPINC' ) || die;
 
 //* Make sure Core is laoded so we have access to SWP_Addon.
-add_action( 'plugins_loaded', function() {
+add_action( 'plugins_loaded', 'Social_Warfare_AffiliateWP', 20 );
 
+function Social_Warfare_AffiliateWP() {
     //* Define our new class here. Immediately instantiate below.
     class Social_Warfare_AffiliateWP extends SWP_Addon {
         public function __construct() {
@@ -66,5 +67,4 @@ add_action( 'plugins_loaded', function() {
     }
     $addon = new Social_Warfare_AffiliateWP();
     add_filter( 'swp_registrations', [$addon, 'add_self'] );
-
-});
+}
