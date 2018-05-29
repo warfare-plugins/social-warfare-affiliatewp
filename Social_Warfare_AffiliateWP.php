@@ -9,7 +9,7 @@ class Social_Warfare_AffiliateWP extends SWP_Addon {
         $this->core_required = '3.0.0';
 
         if ( $this->is_registered() ) {
-            add_filter( 'swp_network_buttons', [$this, 'append_affiliate_id_to_links'], 1, 1 );
+            add_filter( 'swp_link_shortening', [$this, 'append_affiliate_id_to_links'], 500, 1 );
         }
     }
 
@@ -23,11 +23,6 @@ class Social_Warfare_AffiliateWP extends SWP_Addon {
      *
      */
     public function append_affiliate_id_to_links( $buttons ) {
-    die("first");
-        // Make sure core is on a version that contains our dependancies
-        $buttons['url'] = "https://xkcd.com";
-        die ( "second");
-
           // Check if the AffiliateWP plugin is installed
           if ( function_exists('affwp_is_affiliate') ) {
 
