@@ -1,4 +1,6 @@
 <?php
+if ( class_exists( 'SWP_ADDON' ) ) :
+
 class Social_Warfare_AffiliateWP extends SWP_Addon {
     public function __construct() {
         parent::__construct();
@@ -40,3 +42,5 @@ class Social_Warfare_AffiliateWP extends SWP_Addon {
         return $buttons;
     }
 }
+
+endif;
