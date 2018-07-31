@@ -37,15 +37,18 @@ function initialize_social_warfare_affiliatewp() {
         require_once( SWP_PLUGIN_DIR . '/functions/utilities/SWP_Plugin_Updater.php' );
     }
 
-    //* Everybody gets Pro updates, whether or not their license is active or valid.
-    $edd_updater = new SWP_Plugin_Updater( SWP_STORE_URL, __FILE__, array(
-    	'version' 	=> SWAW_VERSION,		// Current version number.
-    	'license' 	=> '9a5dae1ef9c7e12a50cb52d80553daec',	// Update check key.
-        'item_id'   => SWAW_SL_PRODUCT_ID,
-    	'author' 	=> 'Warfare Plugins',	// Author of this plugin.
-    	'url'           => home_url(),
-        'beta'          => false // Set to true if you wish customers to receive update notifications of beta releases
-    ) );
+    if ( class_exists( 'SWP_Plugin_Updater' ) ) :
+
+        //* Everybody gets Pro updates, whether or not their license is active or valid.
+        $edd_updater = new SWP_Plugin_Updater( SWP_STORE_URL, __FILE__, array(
+        	'version' 	=> SWAW_VERSION,		// Current version number.
+        	'license' 	=> '9a5dae1ef9c7e12a50cb52d80553daec',	// Update check key.
+            'item_id'   => SWAW_SL_PRODUCT_ID,
+        	'author' 	=> 'Warfare Plugins',	// Author of this plugin.
+        	'url'           => home_url(),
+            'beta'          => false // Set to true if you wish customers to receive update notifications of beta releases
+        ) );
+    endif;
 
 }
 
