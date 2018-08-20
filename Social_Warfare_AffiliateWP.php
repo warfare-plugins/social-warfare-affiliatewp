@@ -49,5 +49,3 @@ class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
         return $buttons;
     }
 }
-
-endif;
