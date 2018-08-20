@@ -1,7 +1,14 @@
 <?php
-if ( class_exists( 'SWP_ADDON' ) ) :
+if ( !class_exists( 'Social_Warfare_Addon' ) ) :
+    if ( !defined( 'SWP_PLUGIN_DIR' ) ) :
+        $message = 'Please install and activate Social Warfare before activating Social Warfare - AffiliateWP.';
+        trigger_error( $message, E_WARNING );
+    endif;
 
-class Social_Warfare_AffiliateWP extends SWP_Addon {
+    require_once( SWP_PLUGIN_DIR . '/lib/Social_Warfare_Addon.php' );
+endif;
+
+class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
     public function __construct() {
         parent::__construct();
         $this->name = 'Social Warfare - AffiliateWP';
