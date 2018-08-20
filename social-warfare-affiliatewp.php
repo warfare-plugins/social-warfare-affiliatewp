@@ -34,7 +34,7 @@ function initialize_social_warfare_affiliatewp() {
 	endif;
 
     if ( !class_exists( 'SWP_Plugin_Updater' ) && defined( 'SWP_PLUGIN_DIR' ) ) {
-        require_once( SWP_PLUGIN_DIR . '/functions/utilities/SWP_Plugin_Updater.php' );
+        require_once( SWP_PLUGIN_DIR . '/lib/utilities/SWP_Plugin_Updater.php' );
     }
 
     if ( class_exists( 'SWP_Plugin_Updater' ) ) :
