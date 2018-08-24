@@ -10,12 +10,13 @@ endif;
 
 class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
     public function __construct() {
-        parent::__construct();
         $this->name = 'Social Warfare - AffiliateWP';
         $this->key = 'affiliatewp';
         $this->product_id = 114264;
         $this->version = '2.0.0';
         $this->core_required = '3.0.0';
+
+        parent::__construct();
 
         if ( $this->is_registered() ) {
             add_filter( 'swp_link_shortening', [$this, 'append_affiliate_id_to_links'], 500, 1 );
