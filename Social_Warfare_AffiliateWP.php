@@ -18,7 +18,7 @@ class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
 
         parent::__construct();
 
-        if ( $this->is_registered() ) {
+        if ( $this->is_registered ) {
             add_filter( 'swp_link_shortening', [$this, 'append_affiliate_id_to_links'], 500, 1 );
         }
     }
