@@ -56,7 +56,7 @@ if ( !function_exists( 'swp_needs_core' ) ) :
     function swp_needs_core() {
         ?>
         <div class="update-nag notice is-dismissable">
-            <p><b>Important:</b> You currently have Social Warfare - Pro installed without our Core plugin installed.<br/>Please download the free core version of our plugin from the WordPress repo or from our <a href="https://warfareplugins.com" target="_blank">website</a>.</p>
+            <p><b>Important:</b> You currently have Social Warfare - AffiliateWP installed without our Core plugin installed.<br/>Please download the free core version by clicking this  <a href="https://warfareplugins.com/updates/social-warfare/social-warfare.zip" target="_blank">link</a>.</p>
         </div>
         <?php
     }
