@@ -3,7 +3,7 @@
  * Plugin Name: Social Warfare - AffiliateWP
  * Plugin URI:  http://warfareplugins.com
  * Description: A plugin to that transforms all shared links on the Social Warfare buttons across your site into affiliate links for logged in affiliates.
- * Version:     2.0.0
+ * Version:     2.0.1
  * Author:      Warfare Plugins
  * Author URI:  http://warfareplugins.com
  * Text Domain: social-warfare
@@ -18,7 +18,7 @@
  */
 defined( 'WPINC' ) || die;
 define( 'SWAW_CORE_VERSION_REQUIRED', '3.0.0' );
-define( 'SWAW_VERSION', '2.0.0' );
+define( 'SWAW_VERSION', '2.0.1' );
 define( 'SWAW_PLUGIN_FILE', __FILE__ );
 define( 'SWAW_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'SWAW_PLUGIN_DIR', dirname( __FILE__ ) );
@@ -49,10 +49,10 @@ function initialize_social_warfare_affiliatewp() {
 	 * to let the user know that they need to install it.
 	 *
 	 */
-    if ( !defined( 'SWP_VERSION' ) ) :
+    if ( !defined( 'SWP_VERSION' ) ) {
         add_action( 'admin_notices', 'swp_needs_core' );
         return;
-    endif;
+    }
 
 
 	/**
@@ -83,16 +83,23 @@ function initialize_social_warfare_affiliatewp() {
 			return;
 		}
 
+
+		/**
+		 * If all the checks pass, load up the main class and fire up the plugin.
+		 *
+		 */
 		require_once SWAW_PLUGIN_DIR . '/Social_Warfare_AffiliateWP.php';
         $addon = new Social_Warfare_AffiliateWP();
-        // add_filter( 'swp_registrations', array( $addon, 'add_self' ) );
+
+
+	/**
+	 * If core isn't on a current enough version, bail out but add a dashboard
+	 * notification to let the user know.
+	 *
+	 */
     } else {
         add_filter( 'swp_admin_notices', 'swp_affiliatewp_update_notification' );
 	}
-
-    if ( !class_exists( 'SWP_Plugin_Updater' ) && defined( 'SWP_PLUGIN_DIR' ) ) {
-        require_once( SWP_PLUGIN_DIR . '/lib/utilities/SWP_Plugin_Updater.php' );
-    }
 
 
 	/**
@@ -103,26 +110,28 @@ function initialize_social_warfare_affiliatewp() {
 	 * exists, and if so, it uses it to check for updates from GitHub.
 	 *
 	 */
-    if ( class_exists( 'Puc_v4_Factory') ) :
+    if ( class_exists( 'Puc_v4_Factory') ) {
         $update_checker = Puc_v4_Factory::buildUpdateChecker(
         	'https://github.com/warfare-plugins/social-warfare-affiliatewp',
         	__FILE__,
         	'social-warfare-affiliatewp'
         );
         $update_checker->getVcsApi()->enableReleaseAssets();
-    endif;
+    }
 
 }
 
-if ( !function_exists( 'swp_needs_core' ) ) :
+
+/**
+ * A function to create the dashbaord notification to alert a user that they
+ * must have core installed in order to use this plugin.
+ *
+ */
+if ( !function_exists( 'swp_needs_core' ) ) {
     function swp_needs_core() {
-        ?>
-        <div class="update-nag notice is-dismissable">
-            <p><b>Important:</b> You currently have Social Warfare - Pro installed without our Core plugin installed.<br/>Please download the free core version of our plugin from the WordPress repo or from our <a href="https://warfareplugins.com" target="_blank">website</a>.</p>
-        </div>
-        <?php
+        echo '<div class="update-nag notice is-dismissable"><p><b>Important:</b> You currently have Social Warfare - Pro installed without our Core plugin installed.<br/>Please download the free core version of our plugin from the WordPress repo or from our <a href="https://warfareplugins.com" target="_blank">website</a>.</p></div>';
     }
-endif;
+}
 
 
 /**
