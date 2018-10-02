@@ -7,8 +7,15 @@
  * Author:      Warfare Plugins
  * Author URI:  http://warfareplugins.com
  * Text Domain: social-warfare
+ *
  */
 
+
+/**
+ * Define the constants that are used throughout the plugin to include files,
+ * check for updates, check the registration status, etc.
+ *
+ */
 defined( 'WPINC' ) || die;
 define( 'SWAW_CORE_VERSION_REQUIRED', '3.0.0' );
 define( 'SWAW_VERSION', '2.0.0' );
@@ -17,21 +24,70 @@ define( 'SWAW_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'SWAW_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'SWAW_SL_PRODUCT_ID', 191026 );  // AffiliateWP Utility Product id.
 
+
+/**
+ * Enqueue the entire plugin to run deferred to the plugins_loaded hook to
+ * ensure that Social Warfare Core has already loaded up and become available.
+ *
+ */
 add_action('plugins_loaded' , 'initialize_social_warfare_affiliatewp' , 20 );
 
+
+/**
+ * The function that brings the entire plugin to life.
+ *
+ * @since  1.0.0 | 01 JAN 2018 | Created
+ * @param  void
+ * @return void
+ */
 function initialize_social_warfare_affiliatewp() {
+
+
+	/**
+	 * Make sure that Social Warfare is installed by checking for it's version
+	 * constant. If it doesn't exist, we'll queue up a dashboard notification
+	 * to let the user know that they need to install it.
+	 *
+	 */
     if ( !defined( 'SWP_VERSION' ) ) :
         add_action( 'admin_notices', 'swp_needs_core' );
         return;
     endif;
-	
-	if( version_compare( SWP_VERSION, SWAW_CORE_VERSION_REQUIRED ) >= 0 ):
+
+
+	/**
+	 * We need to be sure that Social Warfare is running a version that is
+	 * compatibile with this addon before proceeding.
+	 *
+	 */
+	if( version_compare( SWP_VERSION, SWAW_CORE_VERSION_REQUIRED ) >= 0 ) {
+
+
+		/**
+		 * If the Social_Warfare_Addon class hasn't already been loaded, we need
+		 * to load it up so that we can extend it with this addon.
+		 *
+		 */
+		if ( !class_exists( 'Social_Warfare_Addon' ) && defined( 'SWP_PLUGIN_DIR' ) ) {
+		    require_once( SWP_PLUGIN_DIR . '/lib/Social_Warfare_Addon.php' );
+		}
+
+
+		/**
+		 * If the Social_Warfare_Addon class still doesn't exist after the
+		 * attempt to load it above, we need to bail out.
+		 *
+		 */
+		if( !class_exists( 'Social_Warfare_Addon' ) ) {
+			return;
+		}
+
 		require_once SWAW_PLUGIN_DIR . '/Social_Warfare_AffiliateWP.php';
         $addon = new Social_Warfare_AffiliateWP();
-        add_filter( 'swp_registrations', array( $addon, 'add_self' ) );
-    else:
+        // add_filter( 'swp_registrations', array( $addon, 'add_self' ) );
+    } else {
         add_filter( 'swp_admin_notices', 'swp_affiliatewp_update_notification' );
-	endif;
+	}
 
     if ( !class_exists( 'SWP_Plugin_Updater' ) && defined( 'SWP_PLUGIN_DIR' ) ) {
         require_once( SWP_PLUGIN_DIR . '/lib/utilities/SWP_Plugin_Updater.php' );

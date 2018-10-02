@@ -1,18 +1,14 @@
 <?php
 
-if ( !class_exists( 'Social_Warfare_Addon' ) && defined( 'SWP_PLUGIN_DIR' ) ) {
-    require_once( SWP_PLUGIN_DIR . '/lib/Social_Warfare_Addon.php' );
-} else {
-	return;
-}
 
 class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
     public function __construct() {
-        $this->name = 'Social Warfare - AffiliateWP';
-        $this->key = 'affiliatewp';
-        $this->product_id = 114264;
-        $this->version = '2.0.0';
-        $this->core_required = '3.0.0';
+        $this->name          = 'Social Warfare - AffiliateWP';
+        $this->key           = 'affiliatewp';
+        $this->product_id    = 114264;
+        $this->version       = SWAW_VERSION;
+        $this->core_required = SWAW_CORE_VERSION_REQUIRED;
+        $this->filepath      = SWAW_PLUGIN_FILE;
 
 		parent::__construct();
 
@@ -47,4 +43,20 @@ class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
         // Return the modified array
         return $buttons;
     }
+
+
+	/**
+	 * Add this object to the registrations filter.
+	 *
+	 * @since  2.1.0 | 02 OCT 2018 | Created
+	 * @param  array $addons An array of addon objects.
+	 * @return array         The modified array.
+	 * 
+	 */
+	public function add_self( $addons ) {
+
+		$addons[] = $this;
+
+		return $addons;
+	}
 }
