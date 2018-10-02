@@ -68,7 +68,8 @@ function initialize_social_warfare_affiliatewp() {
 		 * to load it up so that we can extend it with this addon.
 		 *
 		 */
-		if ( !class_exists( 'Social_Warfare_Addon' ) && defined( 'SWP_PLUGIN_DIR' ) ) {
+		$addon_path = SWP_PLUGIN_DIR . '/lib/Social_Warfare_Addon.php';
+		if ( !class_exists( 'Social_Warfare_Addon' ) && file_exists( $addon_path ) ) {
 		    require_once( SWP_PLUGIN_DIR . '/lib/Social_Warfare_Addon.php' );
 		}
 
@@ -93,17 +94,22 @@ function initialize_social_warfare_affiliatewp() {
         require_once( SWP_PLUGIN_DIR . '/lib/utilities/SWP_Plugin_Updater.php' );
     }
 
-    if ( class_exists( 'SWP_Plugin_Updater' ) ) :
 
-        //* Everybody gets Pro updates, whether or not their license is active or valid.
-        $edd_updater = new SWP_Plugin_Updater( SWP_STORE_URL, __FILE__, array(
-        	'version' 	=> SWAW_VERSION,		// Current version number.
-        	'license' 	=> '9a5dae1ef9c7e12a50cb52d80553daec',	// Update check key.
-            'item_id'   => SWAW_SL_PRODUCT_ID,
-        	'author' 	=> 'Warfare Plugins',	// Author of this plugin.
-        	'url'           => home_url(),
-            'beta'          => false // Set to true if you wish customers to receive update notifications of beta releases
-        ) );
+	/**
+	 * The plugin update checker
+	 *
+	 * This is the class for the plugin update checker. It is not dependent on
+	 * a certain version of core existing. Instead, it simply checks if the class
+	 * exists, and if so, it uses it to check for updates from GitHub.
+	 *
+	 */
+    if ( class_exists( 'Puc_v4_Factory') ) :
+        $update_checker = Puc_v4_Factory::buildUpdateChecker(
+        	'https://github.com/warfare-plugins/social-warfare-affiliatewp',
+        	__FILE__,
+        	'social-warfare-affiliatewp'
+        );
+        $update_checker->getVcsApi()->enableReleaseAssets();
     endif;
 
 }
