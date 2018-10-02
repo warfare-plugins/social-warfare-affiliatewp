@@ -24,11 +24,11 @@ function initialize_social_warfare_affiliatewp() {
         add_action( 'admin_notices', 'swp_needs_core' );
         return;
     endif;
-
+	
 	if( version_compare( SWP_VERSION, SWAW_CORE_VERSION_REQUIRED ) >= 0 ):
 		require_once SWAW_PLUGIN_DIR . '/Social_Warfare_AffiliateWP.php';
         $addon = new Social_Warfare_AffiliateWP();
-        add_filter( 'swp_registrations', [$addon, 'add_self'] );
+        add_filter( 'swp_registrations', array( $addon, 'add_self' ) );
     else:
         add_filter( 'swp_admin_notices', 'swp_affiliatewp_update_notification' );
 	endif;
