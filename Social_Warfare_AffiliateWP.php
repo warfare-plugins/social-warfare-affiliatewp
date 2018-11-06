@@ -51,7 +51,7 @@ class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
 	 * @since  2.1.0 | 02 OCT 2018 | Created
 	 * @param  array $addons An array of addon objects.
 	 * @return array         The modified array.
-	 * 
+	 *
 	 */
 	public function add_self( $addons ) {
 

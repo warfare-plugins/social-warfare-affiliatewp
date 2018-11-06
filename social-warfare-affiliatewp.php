@@ -3,7 +3,7 @@
  * Plugin Name: Social Warfare - AffiliateWP
  * Plugin URI:  http://warfareplugins.com
  * Description: A plugin to that transforms all shared links on the Social Warfare buttons across your site into affiliate links for logged in affiliates.
- * Version:     2.1.0
+ * Version:     2.2.0
  * Author:      Warfare Plugins
  * Author URI:  http://warfareplugins.com
  * Text Domain: social-warfare
@@ -18,7 +18,7 @@
  */
 defined( 'WPINC' ) || die;
 define( 'SWAW_CORE_VERSION_REQUIRED', '3.0.0' );
-define( 'SWAW_VERSION', '2.1.0' );
+define( 'SWAW_VERSION', '2.2.0' );
 define( 'SWAW_PLUGIN_FILE', __FILE__ );
 define( 'SWAW_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'SWAW_PLUGIN_DIR', dirname( __FILE__ ) );
@@ -129,7 +129,11 @@ function initialize_social_warfare_affiliatewp() {
  */
 if ( !function_exists( 'swp_needs_core' ) ) {
     function swp_needs_core() {
-        echo '<div class="update-nag notice is-dismissable"><p><b>Important:</b> You currently have Social Warfare - Pro installed without our Core plugin installed.<br/>Please download the free core version of our plugin from the WordPress repo or from our <a href="https://warfareplugins.com" target="_blank">website</a>.</p></div>';
+        ?>
+        <div class="update-nag notice is-dismissable">
+            <p><b>Important:</b> You currently have Social Warfare - AffiliateWP installed without our Core plugin installed.<br/>Please download the free core version by clicking this  <a href="https://warfareplugins.com/updates/social-warfare/social-warfare.zip" target="_blank">link</a>.</p>
+        </div>
+        <?php
     }
 }
 
