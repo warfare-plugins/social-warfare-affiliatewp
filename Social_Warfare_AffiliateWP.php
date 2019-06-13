@@ -5,6 +5,7 @@ class Social_Warfare_AffiliateWP extends Social_Warfare_Addon {
     public function __construct() {
         $this->name          = 'Social Warfare - AffiliateWP';
         $this->key           = 'affiliatewp';
+		$this->store_url     = 'https://warfareplugins.com';
         $this->product_id    = 114264;
         $this->version       = SWAW_VERSION;
         $this->core_required = SWAW_CORE_VERSION_REQUIRED;
